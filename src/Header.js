@@ -7,8 +7,8 @@ function Header() {
     return (
         <div className='header'>
             <img className='header_logo'
-                src="https://www.pngjoy.com/pngm/16/
-                437428_amazon-logo-amazon-logo-white-text-png-download.png" />
+                src="images\amazon-logo.png" />
+            {/* src="https://www.pngjoy.com/pngm/16/437428_amazon-logo-amazon-logo-white-text-png-download.png" />*/}
             <div className="header_search">
                 <input
                     className="header_searchInput" type="text" />
