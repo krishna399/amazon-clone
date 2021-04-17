@@ -12,7 +12,8 @@ function Header() {
         <div className='header'>
             <Link to="/">
                 <img className='header_logo'
-                    src="images\amazon-logo.png" />
+                    src="images\amazon-logo.png"
+                    alt="amazon logo" />
             </Link>
             {/* src="https://www.pngjoy.com/pngm/16/437428_amazon-logo-amazon-logo-white-text-png-download.png" />*/}
             <div className="header_search">
@@ -24,10 +25,12 @@ function Header() {
 
             <div className="header_nav">
                 <div className="header_option">
-                    <span className="header_option_line_one">
-                        Hello Guest</span>
-                    <span className="header_option_line_two">
-                        Sign In</span>
+                    <Link to="/login">
+                        <span className="header_option_line_one">
+                            Hello Guest</span>
+                        <span className="header_option_line_two">
+                            Sign In</span>
+                    </Link>
                 </div>
 
                 <div className="header_option">

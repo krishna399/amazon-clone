@@ -36,7 +36,7 @@ function Home() {
                     <Product
                         id="124"
                         title="Aamzon Echo (3rd generation) | Smart speaker with Alexa, Charcoal Fabric"
-                        price={12.99}
+                        price={199.99}
                         rating={4.42}
                         image="https://img.dtcn.com/image/digitaltrends/echo-3rd-gen-416x277.jpg"
                     />
