@@ -10,13 +10,24 @@ import Payment from './Payment';
 import { authenticateService } from "./firebase.config";
 import { useStateValue } from "./StateProvider";
 import { UserActions } from "./reducer";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+// payment public api key from stripe dashboard site
+const PAYMENT_PROMISE = loadStripe(
+  `pk_test_51IheLISAZBhSouuZt9gS62aO3oGjtKX64aDX5Sn47T
+  FosLoHx65m3FIGv4VoYfPP4e6gkTd3YBiz06pg7F0COQSJ00UXjGKpCW`
+);
 
 function App() {
 
   const [state, dispatch] = useStateValue();
 
   useEffect(() => {
-    //It will only load once when the app component loads ...
+    /*
+     * It will only load once when the app component loads ...
+     * or when values provided in the follow up array changes
+    */
 
     authenticateService
       .onAuthStateChanged(authUser => {
@@ -35,7 +46,7 @@ function App() {
           });
         }
       });
-  }, [])
+  })
   return (
     <Router>
       <div className="App">
@@ -49,7 +60,9 @@ function App() {
           </Route>
           <Route path="/payment">
             <Header />
-            <Payment />
+            <Elements stripe={PAYMENT_PROMISE}>
+              <Payment />
+            </Elements>
           </Route>
           <Route path="/">
             <Header />

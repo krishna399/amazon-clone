@@ -12,7 +12,7 @@ function Login() {
     */
     const history = useHistory();
 
-    //useState is the hook
+    //useState is the hook for local/current component state value
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
