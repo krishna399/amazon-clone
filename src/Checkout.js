@@ -14,6 +14,11 @@ function Checkout() {
                     src="https://images-na.ssl-images-amazon.com/images/G/02/UK_CCMP/TM/OCC_Amazon1._CB423492668_.jpg"
                     alt="checkout advertisement" />
                 <div>
+                    <h3 className="checkout_userName">
+                        Hello {state.user
+                            ? state.user.email
+                            : "Guest"}
+                    </h3>
                     <h2 className="checkout_title">
                         Your Shopping Basket
                     </h2>

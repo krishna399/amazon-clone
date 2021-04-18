@@ -10,6 +10,10 @@
     height: max-content;
 }
 
+.checkout_userName {
+    padding-left: 10px;
+}
+
 .checkout_title {
     margin-right:10px;
     padding: 10px;
