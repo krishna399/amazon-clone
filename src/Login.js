@@ -5,6 +5,11 @@ import { authenticateService } from './firebase.config';
 
 function Login() {
 
+    /*
+     * History helps us to navigate to specific routes 
+     * programmatically without affecting the styling of
+     * the element that has initiated the push
+    */
     const history = useHistory();
 
     //useState is the hook
