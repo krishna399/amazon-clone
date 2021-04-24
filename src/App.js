@@ -12,6 +12,7 @@ import { useStateValue } from "./StateProvider";
 import { UserActions } from "./reducer";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import Orders from "./Orders";
 
 // payment public api key from stripe dashboard site
 const PAYMENT_PROMISE = loadStripe(
@@ -46,7 +47,7 @@ function App() {
           });
         }
       });
-  })
+  }, [])
   return (
     <Router>
       <div className="App">
@@ -57,6 +58,10 @@ function App() {
           <Route path="/checkout">
             <Header />
             <Checkout />
+          </Route>
+          <Route path="/orders">
+            <Header />
+            <Orders />
           </Route>
           <Route path="/payment">
             <Header />

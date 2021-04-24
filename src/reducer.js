@@ -5,7 +5,8 @@ const initialState = {
 
 let BasketActions = {
     ADD_TO_BASKET: "ADD_TO_BASKET",
-    REMOVE_FROM_BASKET: "REMOVE_FROM_BASKET"
+    REMOVE_FROM_BASKET: "REMOVE_FROM_BASKET",
+    EMPTY_BASKET: "EMPTY_BASKET"
 };
 
 let UserActions = {
@@ -34,6 +35,12 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 basket: newBasket,
+            }
+        }
+        case BasketActions.EMPTY_BASKET : {
+            return {
+                ...state,
+                basket: []
             }
         }
         case UserActions.SET_USER: {

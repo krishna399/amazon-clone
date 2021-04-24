@@ -5,8 +5,9 @@ import CurrencyFormat from 'react-currency-format';
 import axios from "./axios";
 import CheckoutProduct from './CheckoutProduct';
 import { useStateValue } from './StateProvider';
-import { getBasketTotal } from './reducer';
+import { BasketActions, getBasketTotal } from './reducer';
 import "./payment.css";
+import { db } from "./firebase.config";
 
 function Payment() {
 
@@ -29,6 +30,7 @@ function Payment() {
      * it requires a secret key 
     */
     const [stripeClientSecret, setstripeClientSecret] = useState(true);
+    const [customer, setCustomer] = useState({});
 
     /*
      * So whenever the basket items changes,
@@ -42,26 +44,54 @@ function Payment() {
                 url: `/payments/create?total=${getBasketTotal(state.basket) * 100}`
             });
             setstripeClientSecret(response.data.clientSecret);
+            setCustomer(response.data.customer);
         };
-        getStripeClientSecret();
+        if (state.basket.length) {
+            getStripeClientSecret()
+        }
     }, [state.basket])
 
     console.log("this is the secret key", stripeClientSecret);
 
     const processPayment = async (event) => {
         event.preventDefault();
+        console.log(elements.getElement(CardElement));
         setProcessing(true);
         await stripe.confirmCardPayment(
             stripeClientSecret, {
             payment_method: {
-                card: elements.getElement(CardElement)
+                card: elements.getElement(CardElement),
+                billing_details: {
+                    name: 'Jenny Rosen',
+                    address: {
+                        line1: '510 Townsend St',
+                        postal_code: '98140',
+                        city: 'San Francisco',
+                        state: 'CA',
+                        country: 'US',
+                    }
+                }
             }
         }).then(({ paymentIntent }) => {
+
+            db.collection('users')
+                .doc(state.user?.uid)
+                .collection('orders')
+                .doc(paymentIntent.id)
+                .set({
+                    basket: state.basket,
+                    amount: paymentIntent.amount,
+                    created: paymentIntent.created
+                })
             // paymentIntent === payment confirmation
             setSuccess(true);
             setError(null);
             setProcessing(false);
 
+            // remove items from basket
+            dispatch({
+                type: BasketActions.EMPTY_BASKET
+            });
             /* 
              * we need to replacestate instead of push as we 
              * dont want user to press back to land on payment page
